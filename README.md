@@ -2,9 +2,11 @@
 
 GitHub action that runs `csvlint`.
 
-The project is heavily based on salt-lint-action, which was created by Roald Nefs and the original csv-lint action by blackstar257 at [docker-csvlint](https://github.com/blackstar257/docker-csvlint).
+The project is heavily based on salt-lint-action, which was created by Roald Nefs and the action from blackstar257 at [docker-csvlint](https://github.com/blackstar257/docker-csvlint).
 
-Main enhancement to `docker-csvlint` is to be able to provide a search path and file pattern.
+This action adds few additional parameters like file paths and patterns to `docker-csvlint`. Also added is a configurable exit status.
+
+
 
 
 ## Usage
@@ -47,3 +49,14 @@ Valid parameters:
     valid options: "\t", "|", "ஃ", etc
 
 NOTE: The default settings validate that a CSV conforms to [RFC 4180](https://tools.ietf.org/html/rfc4180). By changing the settings, you can no longer strictly guarantee a CSV conforms to RFC 4180.
+
+
+### Todo
+
+- [ ] Ability to use a file list for only new/changed files.  
+
+### Done ✓
+
+- [x] Configurable exit status with fail_on_error.
+- [x] File path 
+- [x] File pattern 

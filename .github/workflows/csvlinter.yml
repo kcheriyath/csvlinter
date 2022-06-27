@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: on_PR
+name: Test_Workflow
 
 # Controls when the action will run. 
 on:
@@ -14,10 +14,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: csv lint
+    name: csv linter
     steps:
     - uses: actions/checkout@v3
-    - name: Run csv-lint
+    - name: Run csvlinter
       uses: kcheriyath/csvlinter@main
       with:
         find_pattern: "*.csv"
