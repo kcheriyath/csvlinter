@@ -1,0 +1,27 @@
+name: "csv-linter"
+description: "CSV Linter action based on csvlint"
+author: "K Cheriyath"
+inputs:
+  find_path: # id of input
+    description: "(optional) when defined, find command is used to search for csv files in the path, relative to project root. defaults to ."
+    required: false
+    default: "."
+  find_pattern: # id of input
+    description: "(optional) File name or pattern to find. Defaults to *.csv"
+    required: false
+    default: "*.csv"
+  extra_params: # id of input
+    description: "(optional) extra parameters passed to the csv-lint command. lazyquotes is added by default."
+    required: false
+    default: "--lazyquotes"
+  fail_on_error: # id of input
+    description: "(optional) Should action fail on error"
+    required: false
+    default: "true"    
+
+branding:
+  icon: "file-plus"
+  color: "green"
+runs:
+  using: "docker"
+  image: "Dockerfile"
