@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -u
-
 # Set variables
 ACTIONSTATUS=0
 EXITSTATUS=0
@@ -17,19 +15,26 @@ INPUT_FAIL_ON_ERROR="${INPUT_FAIL_ON_ERROR:-true}"
 
 cd "${GITHUB_WORKSPACE}"
 
-if [ ! -d "${INPUT_FIND_PATH}" ]; then
-  2>&1 echo "==> Can't find ${INPUT_FIND_PATH}. Please ensure INPUT_FIND_PATH is a directory relative to the root of your project."
-  exit 1
-fi
+if [ -n "${INPUT_FILE_LIST}" ]; then
 
-if [[ -n "${INPUT_FIND_PATTERN}" ]]; then
-    2>&1 echo "==> Pattern ${INPUT_FIND_PATTERN} specified. Finding files matching this pattern."
-
-    readarray -d '' FILELIST < <(find "${INPUT_FIND_PATH}" -name "${INPUT_FIND_PATTERN}" -print0)
+  2>&1 echo "==> File List ${INPUT_FILE_LIST} specified. Linting files matching this pattern."
+  IFS=', ' read -r -a FILELIST <<< "${INPUT_FILE_LIST}"
 else
-    2>&1 echo "INPUT_FIND_PATTERN is not set. Using '*.csv'"
-    readarray -d '' FILELIST < <(find "${INPUT_FIND_PATH}" -name "*.csv" -print0)
+
+    if [ ! -d "${INPUT_FIND_PATH}" ]; then
+          2>&1 echo "==> Can't find ${INPUT_FIND_PATH}. Please ensure INPUT_FIND_PATH is a directory relative to the root of your project."
+          exit 1
+    fi
+    if [[ -n "${INPUT_FIND_PATTERN}" ]]; then
+      2>&1 echo "==> Pattern ${INPUT_FIND_PATTERN} specified. Finding files matching this pattern."
+
+      readarray -d '' FILELIST < <(find "${INPUT_FIND_PATH}" -name "${INPUT_FIND_PATTERN}" -print0)
+    else
+      2>&1 echo "INPUT_FIND_PATTERN is not set. Using '*.csv'"
+      readarray -d '' FILELIST < <(find "${INPUT_FIND_PATH}" -name "*.csv" -print0)
+    fi
 fi
+
 
 FILECOUNT=${#FILELIST[@]}
 

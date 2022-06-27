@@ -4,7 +4,9 @@ GitHub action that runs `csvlint`.
 
 The project is heavily based on salt-lint-action, which was created by Roald Nefs and the action from blackstar257 at [docker-csvlint](https://github.com/blackstar257/docker-csvlint).
 
-This action adds few additional parameters like file paths and patterns to `docker-csvlint`. Also added is a configurable exit status.
+This action adds few additional parameters like file paths and patterns to `docker-csvlint`. 
+
+Also added is the ability to use an external file list and a configurable exit status.
 
 
 
@@ -25,6 +27,7 @@ jobs:
     - name: Run csv-lint
       uses: kcheriyath/csvlinter@main
       with:
+        file_list: "space delmited list of files including path"
         find_pattern: "*.csv"
         find_path: "./data"
         fail_on_error: "false"
@@ -32,7 +35,9 @@ jobs:
 ```
 
 
-find_path: (optional) when defined, find command is used to search for csv files in the path, relative to project root. defaults to . (`dot`)
+file_list: "(optional) if set, linter will use this file list only and find* parameters are ignored. Use as a static list or with jitterbit/get-changed-files to check only new files."
+
+find_path: (optional) if set, find command is used to search for csv files in the path, relative to project root. defaults to . (`dot`)
 
 find_pattern: (optional) defaults to *.csv.
 
@@ -53,10 +58,11 @@ NOTE: The default settings validate that a CSV conforms to [RFC 4180](https://to
 
 ### Todo
 
-- [ ] Ability to use a file list for only new/changed files.  
+
 
 ### Done ✓
 
 - [x] Configurable exit status with fail_on_error.
 - [x] File path 
 - [x] File pattern 
+- [x] Ability to use a file list for only new/changed files.  

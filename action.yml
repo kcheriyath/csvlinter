@@ -2,6 +2,9 @@ name: "csvlinter"
 description: "CSV Linter action based on csvlint"
 author: "K Cheriyath"
 inputs:
+  file_list: # id of input
+    description: "(optional) when defined, linter will use this file list only and find* parameters are ignored. Use as a static list or with jitterbit/get-changed-files to check only new files."
+    required: false
   find_path: # id of input
     description: "(optional) when defined, find command is used to search for csv files in the path, relative to project root. defaults to ."
     required: false
