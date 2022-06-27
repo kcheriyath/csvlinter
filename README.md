@@ -37,15 +37,16 @@ find_pattern: (optional) defaults to *.csv.
 
 fail_on_error: "(optional) Should action fail on error. true/false. default is true".
 
-extra_params: (optional) extra parameters passed to the csv-lint command.
+extra_params: (optional) extra parameters passed to the csvlint command.
 
 Valid parameters: 
 
-    lazyquotes: allow a quote to appear in an unquoted field and a non-doubled quote to appear in a quoted field. WARNING: your file may pass linting, but not parse in the way you would expect.
+    --lazyquotes: allow a quote to appear in an unquoted field and a non-doubled quote to appear in a quoted field. WARNING: your file may pass linting, but not parse in the way you would expect.
 
-    delimiter: the field delimiter, can be any single unicode character.
+    --delimiter: the field delimiter, can be any single unicode character.
     default: "," (comma)
     valid options: "\t", "|", "ஃ", etc
+    syntax: --delimiter='\t'
 
 NOTE: The default settings validate that a CSV conforms to [RFC 4180](https://tools.ietf.org/html/rfc4180). By changing the settings, you can no longer strictly guarantee a CSV conforms to RFC 4180.
 

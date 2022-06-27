@@ -1,6 +1,6 @@
 name: "csvlinter"
-description: "CSV Linter GitHub action using csvlint"
-author: "K Cheriyath"
+description: "Lint your delimited files including comma (csv), tab separated etc using csvlint"
+author: "kcheriyath"
 inputs:
   file_list: # id of input
     description: "(optional) when defined, linter will use this file list only and find* parameters are ignored. Use as a static list or with jitterbit/get-changed-files to check only new files."
@@ -14,7 +14,7 @@ inputs:
     required: false
     default: "*.csv"
   extra_params: # id of input
-    description: "(optional) extra parameters passed to the csv-lint command. lazyquotes is added by default."
+    description: "(optional) extra parameters passed to the csvlint command. see usage in README."
     required: false
     default: "--lazyquotes"
   fail_on_error: # id of input
