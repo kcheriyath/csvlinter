@@ -1,4 +1,4 @@
-name: "csv-linter"
+name: "csvlinter"
 description: "CSV Linter action based on csvlint"
 author: "K Cheriyath"
 inputs:
