@@ -1,5 +1,5 @@
 name: "csvlinter"
-description: "CSV Linter action based on csvlint"
+description: "CSV Linter GitHub action using csvlint"
 author: "K Cheriyath"
 inputs:
   file_list: # id of input

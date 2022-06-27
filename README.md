@@ -1,14 +1,8 @@
 # CSV Linter Action
 
-GitHub action that runs `csvlint`.
+GitHub action that runs [csvlint](https://github.com/Clever/csvlint).
 
-The project is heavily based on salt-lint-action, which was created by Roald Nefs and the action from blackstar257 at [docker-csvlint](https://github.com/blackstar257/docker-csvlint).
-
-This action adds few additional parameters like file paths and patterns to `docker-csvlint`. 
-
-Also added is the ability to use an external file list and a configurable exit status.
-
-
+This action allows inputs for file paths, patterns and external file lists (check below how to use it for only changed files). There is also the ability for a configurable exit status.
 
 
 ## Usage
