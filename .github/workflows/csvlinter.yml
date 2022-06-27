@@ -14,12 +14,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: csv linter
+    name: Check CSVs
     steps:
-    - uses: actions/checkout@v3
-    - name: Run csvlinter
-      uses: kcheriyath/csvlinter@main
-      with:
-        find_pattern: "*.csv"
-        find_path: "examples"
-        extra_params: "--lazyquotes"
+        - name: Spelling Checkout
+          uses: actions/checkout@v3
+ 
+        - name: Identify Changed Files
+          uses: jitterbit/get-changed-files@v1
+          id: changed_files
+
+        - name: Run csvlinter
+          uses: kcheriyath/csvlinter@main
+          with:
+            file_list: ${{ steps.changed_files.outputs.all }}
+            find_pattern: "*.csv"
+            find_path: "examples"
+            extra_params: "--lazyquotes"
+
