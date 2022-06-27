@@ -1,8 +1,8 @@
-Name,Ring,Quadrant,Moved
+Name,Ring,Quadrant,Moved,Links
 Azure ARM,RETIRE,1,NONE,
 Bicep,EXPLORE,1,NONE,
 Helm,ADOPT,1,NONE,
-K8s Operators,EXPLORE,1,NONE,test123
+K8s Operators,EXPLORE,1,NONE,
 JSON,ADOPT,1,NONE,
 Powershell,ADOPT,1,NONE,
 Terraform,ADOPT,1,NONE,
