@@ -18,8 +18,8 @@ jobs:
     name: csv lint
     steps:
     - uses: actions/checkout@v3
-    - name: Run csv-lint
-      uses: kcheriyath/csvlinter@main
+    - name: csvlinter
+      uses: kcheriyath/csvlinter@V0.6.0
       with:
         file_list: "space delmited list of files including path"
         find_pattern: "*.csv"
