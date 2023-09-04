@@ -15,7 +15,7 @@ jobs:
     name: Check CSVs
     steps:
         - name: Spelling Checkout
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
  
         - name: Identify Changed Files
           uses: jitterbit/get-changed-files@v1
