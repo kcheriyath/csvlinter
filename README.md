@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     name: csv lint
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: csvlinter
       uses: kcheriyath/csvlinter@V0.6.0
       with:
@@ -29,7 +29,7 @@ jobs:
 ```
 
 
-file_list: "(optional) if set, linter will use this file list only and find* parameters are ignored. Use as a static list or with jitterbit/get-changed-files to check only new files."
+file_list: "(optional) if set, linter will use this file list only and find* parameters are ignored. Use as a static list or with masesgroup/retrieve-changed-files@v3 to check only new files."
 
 find_path: (optional) if set, find command is used to search for csv files in the path, relative to project root. defaults to . (`dot`)
 
@@ -50,6 +50,26 @@ Valid parameters:
 
 NOTE: The default settings validate that a CSV conforms to [RFC 4180](https://tools.ietf.org/html/rfc4180). By changing the settings, you can no longer strictly guarantee a CSV conforms to RFC 4180.
 
+###
+
+Example with an additional step for using retrieve-changed-files action
+
+```
+        - name: Spelling Checkout
+          uses: actions/checkout@v4
+ 
+        - name: Identify Changed Files
+          uses: masesgroup/retrieve-changed-files@v3
+          id: changed_files
+
+        - name: csvlinter
+          uses: kcheriyath/csvlinter@V0.6.0
+          with:
+            file_list: ${{ steps.changed_files.outputs.all }}
+            find_pattern: "*.csv"
+            find_path: "examples"
+            extra_params: "--lazyquotes"
+```
 
 ### Todo
 
