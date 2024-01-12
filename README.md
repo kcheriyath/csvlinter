@@ -31,9 +31,9 @@ jobs:
 
 file_list: "(optional) if set, linter will use this file list only and find* parameters are ignored. Use as a static list or with masesgroup/retrieve-changed-files@v3 to check only new files."
 
-find_path: (optional) if set, find command is used to search for csv files in the path, relative to project root. defaults to . (`dot`)
+find_path: (optional, used only if file_list is not set ) if set, find command is used to search for csv files in the path, relative to project root. defaults to . (`dot`)
 
-find_pattern: (optional) defaults to *.csv.
+find_pattern: (optional, used only if file_list is not set) defaults to *.csv.
 
 fail_on_error: "(optional) Should action fail on error. true/false. default is true".
 
@@ -66,8 +66,6 @@ Example with an additional step for using retrieve-changed-files action
           uses: kcheriyath/csvlinter@V0.6.0
           with:
             file_list: ${{ steps.changed_files.outputs.all }}
-            find_pattern: "*.csv"
-            find_path: "examples"
             extra_params: "--lazyquotes"
 ```
 
