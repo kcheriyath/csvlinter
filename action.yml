@@ -16,7 +16,10 @@ inputs:
   extra_params: # id of input
     description: "(optional) extra parameters passed to the csvlint command. see usage in README."
     required: false
-    default: "--lazyquotes"
+  verbose: # id of input
+    description: "(optional) Set to false to reduce log output to only errors. Defaults to true."
+    required: false
+    default: "true"
   fail_on_error: # id of input
     description: "(optional) Should action fail on error"
     required: false

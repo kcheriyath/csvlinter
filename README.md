@@ -19,12 +19,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: csvlinter
-      uses: kcheriyath/csvlinter@V0.6.0
+      uses: kcheriyath/csvlinter@V0.7.0
       with:
         file_list: "space delimited list of files including path"
         find_pattern: "*.csv"
         find_path: "./data"
         fail_on_error: "false"
+        verbose: "true"
         extra_params: "--lazyquotes"
 ```
 
@@ -37,7 +38,9 @@ find_pattern: (optional, used only if file_list is not set) defaults to *.csv.
 
 fail_on_error: "(optional) Should action fail on error. true/false. default is true".
 
-extra_params: (optional) extra parameters passed to the csvlint command.
+verbose: "(optional) Set to false to reduce log output to only errors. true/false. default is true".
+
+extra_params: (optional) extra parameters passed to the csvlint command. No default — omitting this parameter will validate against RFC 4180 strictly.
 
 Valid parameters: 
 
@@ -63,10 +66,20 @@ Example with an additional step for using retrieve-changed-files action
           id: changed_files
 
         - name: csvlinter
-          uses: kcheriyath/csvlinter@V0.6.0
+          uses: kcheriyath/csvlinter@V0.7.0
           with:
             file_list: ${{ steps.changed_files.outputs.all }}
             extra_params: "--lazyquotes"
+```
+
+Example with verbose=false to only show errors:
+
+```
+        - name: csvlinter
+          uses: kcheriyath/csvlinter@V0.7.0
+          with:
+            find_path: "./data"
+            verbose: "false"
 ```
 
 ### Todo
@@ -78,4 +91,6 @@ Example with an additional step for using retrieve-changed-files action
 - [x] Configurable exit status with fail_on_error.
 - [x] File path 
 - [x] File pattern 
-- [x] Ability to use a file list for only new/changed files.  
+- [x] Ability to use a file list for only new/changed files.
+- [x] Optional verbose mode to reduce log output (verbose=false shows only errors).
+- [x] extra_params is now truly optional with no default (omitting it validates against RFC 4180).
