@@ -15,7 +15,7 @@ jobs:
     name: Check CSVs
     steps:
         - name: Spelling Checkout
-          uses: actions/checkout@v4
+          uses: actions/checkout@v6
  
         - name: Identify Changed Files
           uses: masesgroup/retrieve-changed-files@v3
