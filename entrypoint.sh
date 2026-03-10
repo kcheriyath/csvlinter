@@ -10,6 +10,7 @@ LOOPCOUNT=0
 INPUT_EXTRA_PARAMS="${INPUT_EXTRA_PARAMS:-}"
 INPUT_FIND_PATH="${INPUT_FIND_PATH:-.}"
 INPUT_FAIL_ON_ERROR="${INPUT_FAIL_ON_ERROR:-true}"
+INPUT_VERBOSE="${INPUT_VERBOSE:-true}"
 
 
 
@@ -17,20 +18,26 @@ cd "${GITHUB_WORKSPACE}"
 
 if [ -n "${INPUT_FILE_LIST}" ]; then
 
-  2>&1 echo "==> File List ${INPUT_FILE_LIST} specified. Linting files matching this pattern."
+  if [ "${INPUT_VERBOSE}" = "true" ]; then
+    echo "==> File List ${INPUT_FILE_LIST} specified. Linting files matching this pattern." >&2
+  fi
   IFS=', ' read -r -a FILELIST <<< "${INPUT_FILE_LIST}"
 else
 
     if [ ! -d "${INPUT_FIND_PATH}" ]; then
-          2>&1 echo "==> Can't find ${INPUT_FIND_PATH}. Please ensure INPUT_FIND_PATH is a directory relative to the root of your project."
+          echo "==> Can't find ${INPUT_FIND_PATH}. Please ensure INPUT_FIND_PATH is a directory relative to the root of your project." >&2
           exit 1
     fi
     if [[ -n "${INPUT_FIND_PATTERN}" ]]; then
-      2>&1 echo "==> Pattern ${INPUT_FIND_PATTERN} specified. Finding files matching this pattern."
+      if [ "${INPUT_VERBOSE}" = "true" ]; then
+        echo "==> Pattern ${INPUT_FIND_PATTERN} specified. Finding files matching this pattern." >&2
+      fi
 
       readarray -d '' FILELIST < <(find "${INPUT_FIND_PATH}" -name "${INPUT_FIND_PATTERN}" -print0)
     else
-      2>&1 echo "INPUT_FIND_PATTERN is not set. Using '*.csv'"
+      if [ "${INPUT_VERBOSE}" = "true" ]; then
+        echo "INPUT_FIND_PATTERN is not set. Using '*.csv'" >&2
+      fi
       readarray -d '' FILELIST < <(find "${INPUT_FIND_PATH}" -name "*.csv" -print0)
     fi
 fi
@@ -39,10 +46,12 @@ fi
 FILECOUNT=${#FILELIST[@]}
 
 
-2>&1 echo "==> Found  ${FILECOUNT} files to Lint."
+if [ "${INPUT_VERBOSE}" = "true" ]; then
+  echo "==> Found  ${FILECOUNT} files to Lint." >&2
+fi
 
 if [ "${FILECOUNT}" -eq 0 ]; then
-  2>&1 echo "==> Nothing to do. Exiting."
+  echo "==> Nothing to do. Exiting." >&2
   exit 0
 fi
 
@@ -50,11 +59,13 @@ trap '' ERR
 
 for FILE in "${FILELIST[@]}"; do
   LOOPCOUNT=$((LOOPCOUNT+1))
-  2>&1 echo "==> Linting ${LOOPCOUNT} of ${FILECOUNT}. FILE: ${FILE}"
+  if [ "${INPUT_VERBOSE}" = "true" ]; then
+    echo "==> Linting ${LOOPCOUNT} of ${FILECOUNT}. FILE: ${FILE}" >&2
+  fi
   /usr/local/sbin/csvlint ${INPUT_EXTRA_PARAMS} "${FILE}"
   EXITSTATUS=$?
   if [ ${EXITSTATUS} -ne 0 ]; then
-    2>&1 echo "==> Linting errors found for ${FILE}."
+    echo "==> Linting errors found for ${FILE}." >&2
     ACTIONSTATUS=${EXITSTATUS}
   fi
 done
@@ -62,13 +73,15 @@ done
 # Exit with the status of the last command and user input
 
 if [ ${INPUT_FAIL_ON_ERROR} = "true" ] && [ ${ACTIONSTATUS} -ne 0 ]; then
-  2>&1 echo "==> Linting errors found and fail_on_error is true. Exiting with error."
+  echo "==> Linting errors found and fail_on_error is true. Exiting with error." >&2
   exit ${ACTIONSTATUS}
 elif [ ${INPUT_FAIL_ON_ERROR} = "false" ] && [ ${ACTIONSTATUS} -ne 0 ]; then
-  2>&1 echo "==> Linting errors found and fail_on_error is false. Check logs for errors."
+  echo "==> Linting errors found and fail_on_error is false. Check logs for errors." >&2
   exit 0
 else
-  2>&1 echo "==> No linting errors found. Exiting with success."
+  if [ "${INPUT_VERBOSE}" = "true" ]; then
+    echo "==> No linting errors found. Exiting with success." >&2
+  fi
   exit 0
 fi
 

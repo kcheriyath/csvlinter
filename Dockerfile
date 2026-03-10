@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-LABEL version="0.2.0"
+LABEL version="0.7.0"
 LABEL repository="https://github.com/kcheriyath/csv-lint"
 LABEL homepage="https://github.com/kcheriyath/csv-lint"
 LABEL maintainer="K Cheriyath <kcher-developer@outlook.com>"
