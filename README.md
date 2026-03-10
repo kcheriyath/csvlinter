@@ -26,7 +26,6 @@ jobs:
         find_path: "./data"
         fail_on_error: "false"
         verbose: "true"
-        extra_params: "--lazyquotes"
 ```
 
 
