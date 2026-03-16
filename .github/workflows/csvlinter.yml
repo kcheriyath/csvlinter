@@ -18,7 +18,7 @@ jobs:
           uses: actions/checkout@v6
  
         - name: Identify Changed Files
-          uses: masesgroup/retrieve-changed-files@v3
+          uses: masesgroup/retrieve-changed-files@v4
           id: changed_files
 
         - name: csvlinter
